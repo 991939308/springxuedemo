@@ -1,6 +1,7 @@
 package com.spring.xue.aop;
 
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,15 @@ public class FirstAop {
      * @create: 2018-11-02-13-27
      *
      */
-    @Pointcut("execution(public * *(..))")
+    @Pointcut("execution(* com.spring.xue.service.*.*(..))")
     public void beforaspectj(){}
+
+
+    @Before("beforaspectj()")
+    public  void before(){
+        System.out.println("前置aaspectj切点");
+    }
+
+
+
 }
