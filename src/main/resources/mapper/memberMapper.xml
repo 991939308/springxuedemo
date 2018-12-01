@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.spring.xue.mapper.MemeberMapper">
+        <!--根据ID查询记录-->
+        <select id="findObjectById" parameterType="Integer" resultType="Map">
+            select * from memeber where id = #{id}
+       </select>
+    </mapper>
