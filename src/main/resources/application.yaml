@@ -19,3 +19,5 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml            #扫描mapper下的所有的映射文件
   type-aliases-package: com.spring.xue.mapper         #实体类映射包
 debug: true
+server:
+  port: 9090
