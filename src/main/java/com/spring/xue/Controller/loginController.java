@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class loginController {
 
     @RequestMapping("/login")
-    public String login(String name,String password){
+    public String login(String name, String password) {
 
         //1、获取subject
         Subject subject = SecurityUtils.getSubject();
 
         //2、封装用户数据
-        UsernamePasswordToken token = new UsernamePasswordToken(name,password);
+        UsernamePasswordToken token = new UsernamePasswordToken(name, password);
 
         //3、执行登录方法
         try {

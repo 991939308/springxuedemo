@@ -28,36 +28,37 @@ public class firstController {
 
     @Autowired
     firstService f;
-    /*
+
+    /**
      * @program: xue
      * @create: 2018-11-02-11-48
      *
      */
     @RequestMapping("/first")
-    public String first(){
+    public String first() {
         String a = f.fitst();
         System.out.println("first");
         return a;
     }
 
     @RequestMapping("/fileupload")
-    public Map<String,Object> fileUpload(MultipartFile filename) throws IOException {
-        System.out.println("1---"+this.getClass().getResource("/")+filename.getOriginalFilename());
-        System.out.println("2---"+this.getClass().getResource("/")+filename.getOriginalFilename());
-        filename.transferTo(new File(this.getClass().getResource("/").getPath()+filename.getOriginalFilename()));
-        HashMap<String,Object> obj = new HashMap<>();
-        obj.put("msg",200);
+    public Map<String, Object> fileUpload(MultipartFile filename) throws IOException {
+        System.out.println("1---" + this.getClass().getResource("/") + filename.getOriginalFilename());
+        System.out.println("2---" + this.getClass().getResource("/") + filename.getOriginalFilename());
+        filename.transferTo(new File(this.getClass().getResource("/").getPath() + filename.getOriginalFilename()));
+        HashMap<String, Object> obj = new HashMap<>();
+        obj.put("msg", 200);
         return obj;
     }
 
     @RequestMapping("/filedownload")
-    public String filedownload(HttpServletResponse response){
+    public String filedownload(HttpServletResponse response) {
 //        File file = new File();//加载一个文件
-        List<String> list = Arrays.asList("1","2","3");
+        List<String> list = Arrays.asList("1", "2", "3");
         HSSFWorkbook workbook = new HSSFWorkbook();//一个excel文件
         HSSFSheet sheet = workbook.createSheet("test");//新建一个work表
-        for(int i=0;i<list.size();i++){
-            HSSFRow row= sheet.createRow(i);
+        for (int i = 0; i < list.size(); i++) {
+            HSSFRow row = sheet.createRow(i);
             HSSFCell cell = row.createCell(i);
             cell.setCellValue(list.get(i));
         }
@@ -78,8 +79,7 @@ public class firstController {
             workbook.write(out);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 out.close();
             } catch (IOException e) {
