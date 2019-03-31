@@ -1,6 +1,7 @@
 package com.spring.xue.Controller;
 
 import com.spring.xue.service.firstService;
+import com.spring.xue.utils.JWTUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -87,6 +88,12 @@ public class firstController {
             }
         }
         return "200";
+    }
+
+    @RequestMapping("/gettoken")
+    public String gettoken(String userId,String password){
+        String token = JWTUtils.sign(userId,password);
+        return token;
     }
 
 }
