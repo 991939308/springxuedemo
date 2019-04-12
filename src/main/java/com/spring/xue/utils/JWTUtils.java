@@ -45,8 +45,8 @@ public class JWTUtils {
                 .setId(id)//客户端的唯一标记 可以是客户端的IP 可以是用户ID 可以是服务器生成的ID
                 .setIssuer(iss)//设置创建人
                 .setSubject(subject)//用户信息
-                .setIssuedAt(now)//token生成时间
-                .signWith(secret);//设置密匙
+                .setIssuedAt(now);//token生成时间
+//                .signWith(secret);//设置密匙
         if (ttMillis >= 0) {
             long expMillis = nowMillis+ttMillis;
             Date expDate = new Date(expMillis);

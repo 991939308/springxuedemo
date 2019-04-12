@@ -92,7 +92,7 @@ public class firstController {
 
     @RequestMapping("/gettoken")
     public String gettoken(String userId,String password){
-        String token = JWTUtils.sign(userId,password);
+        String token = JWTUtils.sign(userId,password,"",1000L);
         return token;
     }
 
