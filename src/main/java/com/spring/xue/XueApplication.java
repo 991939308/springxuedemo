@@ -8,6 +8,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @SpringBootApplication
 @MapperScan("com.spring.xue.mapper")
+//@MapperScan("com.baomidou.mybatisplus.samples.quickstart.mapper")
 public class XueApplication {
 
     public static void main(String[] args) {
