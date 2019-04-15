@@ -41,6 +41,7 @@ public class UserRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         if (!name.equals(token.getUsername())) {
             //返回null时shiro会抛出一个UnknowAccountException
+            log.info("校验username:False");
             return null;
         }
         //2、判断密码-密码不需要我自己判断shiro会自己判断

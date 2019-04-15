@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1111login</title>
+    <script src="jquery-2.0.3.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#login").click(function () {
+                var username = $("input[name=username]").val();
+                var password = $("input[name=password]").val();
+                console.log(username + "---" + password);
+                $.ajax({
+                    url: "login",
+                    type: "POST",
+                    data: {username: username, password: password},
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+
+            });
+        });
+
+    </script>
+</head>
+<body>
+<form action="login" name="login" method="post">
+    <table>
+        <tr>
+            <td width="66" height="20" class="login_td">登录名：</td>
+            <td width="115" height="20" class="login_td"><input
+                    class="login_input" type="text" name="username"
+            ></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td height="20" class="login_td">密 码：</td>
+            <td height="20" class="login_td"><input
+                    type="password" name="password" class="login_input"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td height="20" colspan="2" align="center">
+                <input type="button" value="登录" id="login" class="login_button"/>  
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
