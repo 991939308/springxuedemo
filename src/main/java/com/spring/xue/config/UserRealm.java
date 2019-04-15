@@ -1,12 +1,18 @@
 package com.spring.xue.config;
 
 
+import com.spring.xue.Bean.User;
+import com.spring.xue.service.LoginService;
+import com.spring.xue.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Map;
 
 /**
  * 自定义域
@@ -15,6 +21,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 @Slf4j
 public class UserRealm extends AuthorizingRealm {
 
+    @Autowired
+    private LoginService loginService;
     /**
      * 执行授权逻辑
      */
@@ -34,12 +42,17 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         log.info("执行认证的逻辑");
-        String name = "admin";
-        String password = "password";
+//        String name = "admin";
+//        String password = "password";
+//
 
         //1、判断用户名
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        if (!name.equals(token.getUsername())) {
+
+        Map userDto = loginService.getUserbyName(token.getUsername());
+        String username = StringUtils.valueOf(userDto.get("username"));
+        String password = StringUtils.valueOf(userDto.get("password"));
+        if (!username.equals(token.getUsername())) {
             //返回null时shiro会抛出一个UnknowAccountException
             log.info("校验username:False");
             return null;

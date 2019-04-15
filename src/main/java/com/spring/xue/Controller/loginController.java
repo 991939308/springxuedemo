@@ -33,12 +33,14 @@ public class loginController {
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
 
         //3、执行登录方法
+        String JwtToken ="";
         try {
             //当认证失败会报异常
             subject.login(token);
-            String JwtToken = createJWT(10000L,user);
+            //设置过期时间
+            JwtToken = createJWT(1800000,user);//30分钟有效期
             log.info("当前token:"+JwtToken);
-            return new Respons(200,true,"成功",null,"");
+            return new Respons(200,true,"成功",null,JwtToken);
         } catch (AuthenticationException e) {
             e.printStackTrace();
             System.out.println("认证失败");

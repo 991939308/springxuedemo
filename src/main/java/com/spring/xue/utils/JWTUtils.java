@@ -5,10 +5,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.xue.Bean.JWTResult;
 import com.spring.xue.Bean.User;
+import com.spring.xue.service.LoginService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -20,6 +23,9 @@ import java.util.UUID;
 
 @Slf4j
 public class JWTUtils {
+
+    @Autowired
+    private LoginService loginService;
     //定义token过期时间
     public static final long EXPIRE_TIME = 50 * 60 * 1000;
     /*token口令*/
@@ -115,6 +121,8 @@ public class JWTUtils {
                 .setId(UUID.randomUUID().toString())
                 //iat: jwt的签发时间
                 .setIssuedAt(now)
+//                //设置过期时间
+//                .setExpiration(new Date(System.currentTimeMillis()+ttlMillis))
                 //代表这个JWT的主体，即它的所有人，这个是一个json格式的字符串，可以存放什么userid，roldid之类的，作为什么用户的唯一标志。
                 .setSubject(subject)
                 //设置签名使用的签名算法和签名使用的秘钥
@@ -127,6 +135,52 @@ public class JWTUtils {
         }
         return builder.compact();
     }
+
+
+    /**
+     * Token的解密
+     * @param token 加密后的token
+     * @param user  用户的对象
+     * @return
+     */
+    public static Claims parseJWT(String token, User user) {
+        //签名秘钥，和生成的签名的秘钥一模一样
+        String key = user.getPassword();
+
+        //得到DefaultJwtParser
+        Claims claims = Jwts.parser()
+                //设置签名的秘钥
+                .setSigningKey(key)
+                //设置需要解析的jwt
+                .parseClaimsJws(token).getBody();
+        return claims;
+    }
+
+    /**
+     * 校验token
+     * 在这里可以使用官方的校验，我这里校验的是token中携带的密码于数据库一致的话就校验通过
+     * @param token
+     * @param user
+     * @return
+     */
+    public static Boolean isVerify(String token, Map<String,Object> user) {
+        //签名秘钥，和生成的签名的秘钥一模一样
+        String key = StringUtils.valueOf(user.get("password"));
+
+        //得到DefaultJwtParser
+        Claims claims = Jwts.parser()
+                //设置签名的秘钥
+                .setSigningKey(key)
+                //设置需要解析的jwt
+                .parseClaimsJws(token).getBody();
+
+        if (claims.get("password").equals(key)) {
+            return true;
+        }
+
+        return false;
+    }
+
 
 
 }
