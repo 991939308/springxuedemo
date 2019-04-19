@@ -8,6 +8,7 @@ import com.spring.xue.utils.StringUtils;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,6 +21,9 @@ import java.util.Map;
  * */
 @Slf4j
 public class JwtLoginInterceptor implements HandlerInterceptor {
+    @Value("${Service.JWT.SECRTKEY}")
+    private String key;
+
 
     @Autowired
     private LoginService loginService;
@@ -39,7 +43,7 @@ public class JwtLoginInterceptor implements HandlerInterceptor {
                 if(userDto.isEmpty()){
                     throw new RuntimeException("当前用户不存在，请重新登录");
                 }
-                boolean isVerify = JWTUtils.isVerify(token,userDto);
+                boolean isVerify = JWTUtils.isVerify(token,userDto,key);
                 if(!isVerify){
                     throw new RuntimeException("非法访问");
                 }
@@ -56,6 +60,8 @@ public class JwtLoginInterceptor implements HandlerInterceptor {
         }else{//校验jwttoken
             return true;
         }
+
+//        return true;
     }
 
     /**

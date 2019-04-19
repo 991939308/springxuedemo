@@ -90,10 +90,10 @@ public class firstController {
         return "200";
     }
 
-    @RequestMapping("/gettoken")
-    public String gettoken(String userId,String password){
-        String token = JWTUtils.sign(userId,password,"",1000L);
-        return token;
-    }
+//    @RequestMapping("/gettoken")
+//    public String gettoken(String userId,String password){
+//        String token = JWTUtils.sign(userId,password,"",1000L);
+//        return token;
+//    }
 
 }
