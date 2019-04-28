@@ -50,9 +50,11 @@ public class loginController {
             System.out.println("认证失败");
             return new Respons(100,false,"失败",null,"");
         }
-
-
     }
 
+    @RequestMapping("globalEx")
+    public Object globalExceptionTest(){
+        return new Exception();
+    }
 
 }
