@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * 全局异常捕获处理
  */
 @Slf4j
-@RestControllerAdvice
+//@RestControllerAdvice
 public class WholeSituationExceptionController {
 
     /**
@@ -25,7 +25,7 @@ public class WholeSituationExceptionController {
     @ExceptionHandler(ShiroException.class)
     public Respons Handle401(ShiroException e) {
         log.error("shrio异常：" + e);
-        return new Respons(401, false, "shiro异常", null, null);
+        return new Respons(false, "shiro异常", null);
     }
 
     /**
@@ -35,7 +35,7 @@ public class WholeSituationExceptionController {
     @ExceptionHandler(UnauthorizedException.class)
     public Respons Handle401(UnauthorizedException e) {
         log.error("非法请求异常：" + e);
-        return new Respons(401, false, "非法请求异常", null, null);
+        return new Respons(false, "非法请求异常", null);
     }
 
     /**
@@ -44,7 +44,7 @@ public class WholeSituationExceptionController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Respons globalException(HttpServletRequest request, Throwable ex) {
-        return new Respons(401, false, "其他异常", null, null);
+        return new Respons(false, "其他异常",null);
     }
 //    Integer statuus = request.getAttribute("javax.servlet.error.status_code");
 

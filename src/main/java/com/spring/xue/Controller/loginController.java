@@ -44,17 +44,17 @@ public class loginController {
             //设置过期时间
             JwtToken = createJWT(EXPIRE_TIME,key,user);//30分钟有效期
             log.info("当前token:"+JwtToken);
-            return new Respons(200,true,"成功",null,JwtToken);
+            return new Respons(true,"成功",JwtToken);
         } catch (AuthenticationException e) {
             e.printStackTrace();
             System.out.println("认证失败");
-            return new Respons(100,false,"失败",null,"");
+            return new Respons(false,"失败","");
         }
     }
 
-    @RequestMapping("globalEx")
-    public Object globalExceptionTest(){
-        return new Exception();
+    @RequestMapping("/test")
+    public String test(){
+        return "test";
     }
 
 }

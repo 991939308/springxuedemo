@@ -1,7 +1,9 @@
 package com.spring.xue.Controller;
 
+import com.spring.xue.annotations.Limiter;
 import com.spring.xue.service.firstService;
 import com.spring.xue.utils.JWTUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -23,6 +25,7 @@ import java.io.OutputStream;
 import java.nio.file.Paths;
 import java.util.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/")
 public class firstController {
@@ -30,26 +33,27 @@ public class firstController {
     @Autowired
     firstService f;
 
+
     /**
      * @program: xue
      * @create: 2018-11-02-11-48
      *
      */
-    @RequestMapping("/first")
+    @Limiter(perSecound = 1.0,timeOut = 500)
+    @RequestMapping("/limit")
     public String first() {
         String a = f.fitst();
-        System.out.println("first");
+        log.info("limit限制！！");
         return a;
     }
 
     @RequestMapping("/fileupload")
     public Map<String, Object> fileUpload(MultipartFile filename) throws IOException {
-        System.out.println("1---" + this.getClass().getResource("/") + filename.getOriginalFilename());
-        System.out.println("2---" + this.getClass().getResource("/") + filename.getOriginalFilename());
+        HashMap<String,Object> resultMap = new HashMap<>();
+        log.info(this.getClass().getResource("/").toString()+filename.getOriginalFilename());
         filename.transferTo(new File(this.getClass().getResource("/").getPath() + filename.getOriginalFilename()));
-        HashMap<String, Object> obj = new HashMap<>();
-        obj.put("msg", 200);
-        return obj;
+        resultMap.put("success", true);
+        return resultMap;
     }
 
     @RequestMapping("/filedownload")
