@@ -36,6 +36,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!--spring boot shiro start-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>2.1.0.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
         <!--aop aspectjrt-->
         <!--<dependency>
             <groupId>org.aspectj</groupId>
@@ -110,28 +118,6 @@
             <version>3.17</version>
         </dependency>
 
-        <!--shiro部分-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-        <!-- shiro ehcache -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.theborakompanioni</groupId>
-            <artifactId>thymeleaf-extras-shiro</artifactId>
-            <version>1.2.1</version>
-        </dependency>
         <!--配置kafka-->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
@@ -177,6 +163,15 @@
             <scope>test</scope>
         </dependency>
 
+        <!--&lt;!&ndash;spring security 整合&ndash;&gt;
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+        </dependency>-->
 
 
     </dependencies>

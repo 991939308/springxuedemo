@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+
 @Service
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private LoginMapper loginMapper;
+
     @Override
-    public Map<String,Object> getUserbyName(String username) {
+    public Map getUserbyName(String username) {
         return loginMapper.getUserbyName(username);
     }
 }

@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface LoginService {
 
-    Map<String,Object> getUserbyName(String username);
+    Map getUserbyName(String username);
 }

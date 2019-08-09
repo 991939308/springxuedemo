@@ -2,6 +2,7 @@ package com.spring.xue.interceptor;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.spring.xue.Bean.User;
 import com.spring.xue.service.LoginService;
 import com.spring.xue.utils.JWTUtils;
 import com.spring.xue.utils.StringUtils;

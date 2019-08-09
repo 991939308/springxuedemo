@@ -1,23 +1,12 @@
 package com.spring.xue.Controller;
 
-import com.spring.xue.Bean.Respons;
 import com.spring.xue.Bean.User;
+import com.spring.xue.utils.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.spring.xue.utils.JWTUtils.createJWT;
 
 @Slf4j
 @Controller
@@ -29,32 +18,19 @@ public class loginController {
     @Value("${Service.JWT.EXPIRE_TIME}")
     private long EXPIRE_TIME;
 
-    @RequestMapping("/login")
-    public Object login(@Valid User user) {
-//        Map<String,Object> rust = new HashMap<>();
-        //1、获取subject
-        Subject subject = SecurityUtils.getSubject();
-        //2、封装用户数据
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
-        //3、执行登录方法
-        String JwtToken ="";
-        try {
-            //当认证失败会报异常
-            subject.login(token);
-            //设置过期时间
-            JwtToken = createJWT(EXPIRE_TIME,key,user);//30分钟有效期
-            log.info("当前token:"+JwtToken);
-            return new Respons(true,"成功",JwtToken);
-        } catch (AuthenticationException e) {
-            e.printStackTrace();
-            System.out.println("认证失败");
-            return new Respons(false,"失败","");
-        }
-    }
 
-    @RequestMapping("/test")
+
+    @RequestMapping("/test.ajax")
     public String test(){
         return "test";
+    }
+
+
+    @RequestMapping("/getjwt.ajax")
+    public String login(String username,String password){
+        User user = new User(username,password);
+        String token = JWTUtils.createJWT(EXPIRE_TIME,key,user);
+        return token;
     }
 
 }

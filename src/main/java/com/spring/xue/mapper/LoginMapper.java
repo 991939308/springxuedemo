@@ -1,9 +1,11 @@
 package com.spring.xue.mapper;
 
+import com.spring.xue.Bean.User;
+
 import java.util.Map;
 
 public interface LoginMapper {
 
-    Map<String, Object> getUserbyName(String username);
+    Map getUserbyName(String username);
 
 }
