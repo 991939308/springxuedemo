@@ -6,10 +6,23 @@
 </head>
 <body>
 
+<div>
     <form action="fileupload" method="post" enctype="multipart/form-data">
         上传文件<input type="file" name="filename"><br/>
         <input type="submit" value="文件上传">
 
     </form>
+</div>
+
+
+<div>
+    <form action="kafkaproduce" method="post" enctype="multipart/form-data">
+        kafkatopic<input type="text" name="sensor"><br/>
+        kafkaMsg<input type="text" name="kafkaMsg"><br/>
+        <input type="submit" value="kafka生产消息">
+    </form>
+</div>
+
+
 </body>
 </html>

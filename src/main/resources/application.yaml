@@ -13,6 +13,26 @@ spring:
       initial-size: 5       #初始化提供的连接数
       max-total: 5          #最大的连接数
       max-wait-millis: 200    #等待连接获取的最大超时时间
+  kafka:                    #配置kafka
+    bootstrap-servers: localhost:9092
+    producer:
+      retries: 0
+      #每次批量发送的数量
+      batch-size: 16384
+      #缓冲大小
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:               #kafka消费者配置信息
+      # 指定默认消费者group id
+      group-id: consumer-group
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 100
+#      指定消息key和消息体的编解码方式
+      key-deserializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer: org.apache.kafka.common.serialization.StringSerializer
+
 #mybatis的mapper配置文件
 mybatis:
   config-location: classpath:mybatis-config.xml       #mybatis配置文件所在目录
@@ -21,4 +41,4 @@ mybatis:
 
 debug: true
 server:
-  port: 9090
+  port: 8019

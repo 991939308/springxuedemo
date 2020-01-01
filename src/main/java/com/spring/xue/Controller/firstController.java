@@ -1,29 +1,29 @@
 package com.spring.xue.Controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.spring.xue.annotations.Limiter;
 import com.spring.xue.service.firstService;
-import com.spring.xue.utils.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -32,6 +32,8 @@ public class firstController {
 
     @Autowired
     firstService f;
+    @Autowired
+    private KafkaTemplate<String,String> kafkaTemplate;
 
 
     /**
@@ -55,6 +57,20 @@ public class firstController {
         resultMap.put("success", true);
         return resultMap;
     }
+
+
+//    kafka生产数据到kafka
+    @RequestMapping("/kafkaproduce")
+    public Map<String, Object> fileUpload(String sensor,String kafkaMsg) throws IOException {
+        HashMap<String,Object> resultMap = new HashMap<>();
+        ListenableFuture<SendResult<String, String>> str=  kafkaTemplate.send(sensor,kafkaMsg);
+        resultMap.put("data",str);
+        resultMap.put("success",true);
+        System.out.println(JSONObject.toJSON("``````````````````````````````````"+resultMap).toString());
+        return resultMap;
+    }
+
+
 
     @RequestMapping("/filedownload")
     public String filedownload(HttpServletResponse response) {

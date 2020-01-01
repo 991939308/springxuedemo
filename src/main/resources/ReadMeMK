@@ -1,0 +1,10 @@
+##### Druid配置
+    启动项目：http://ip:port/druid
+    账号：admin
+    密码：admin
+##### 全局异常拦截
+    新建全局异常拦截配置类
+    使用@RestControllerAdvice注解
+    处理全局异常捕获方法
+    @ExceptionHandler(value=Exception.class)
+##### 
